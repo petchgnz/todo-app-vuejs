@@ -22,9 +22,15 @@ onMounted(() => {
 // Create(POST) Function
 async function CreateTodo(newTodoData) {
   try {
+    if (!newTodoData.task || !newTodoData.status === "selectStatus") {
+      alert("Invalid Task Title! Please try again.")
+      return
+    }
+
     const newData = {
       task: newTodoData.task,
-      status: newTodoData.status
+      status: newTodoData.status,
+      isCompleted: false
     }
 
     await todoStore.postTodo(newData)

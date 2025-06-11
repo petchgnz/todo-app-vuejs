@@ -40,6 +40,7 @@ export const useTodoStore = defineStore('todo', {
     async postTodo(todoData) {
       try {
         await axios.post(`${BASE_URL}/todos/`, todoData)
+        console.log(`API-Create todo completed!`)
 
       } catch (err) {
         console.log(`API-Create todo error: ${err}`)
@@ -50,6 +51,9 @@ export const useTodoStore = defineStore('todo', {
     // use with update button (In edit page)
     async updateTodo(newTodoData, id) {
       try {
+        await axios.put(`${BASE_URL}/todos/${id}`, newTodoData)
+        this.selectedList.push(newTodoData.id)
+        console.log(`API-Update todo completed!`)
 
       } catch (err) {
         console.log(`API-Update todo error: ${err}`)
@@ -61,7 +65,7 @@ export const useTodoStore = defineStore('todo', {
     async deleteTodo(id) {
       try {
         await axios.delete(`${BASE_URL}/todos/${id}`)
-        console.log(`API-Todo Deleted`)
+        console.log(`API-Todo Deleted!`)
       } catch (err) {
         console.log(`API-Delete todo error: ${err}`)
       }
