@@ -26,6 +26,7 @@ onMounted(() => {
   }
 });
 
+// Watch todo's status to change isCompleted to True when status === Done
 watch(
   () => selectedTodo.status,
   (newVal) => {
@@ -37,6 +38,7 @@ function HandleCloseForm() {
   emit('close-form');
 }
 
+// Handle Update logic
 function HandleUpdateTodo() {
   props.updateMethod(selectedTodo, todoStore.selectedList.id);
   console.log(selectedTodo);

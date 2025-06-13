@@ -12,6 +12,7 @@ const todoStore = useTodoStore();
 const isTodoComplete = ref(false);
 const isInEdit = ref(false);
 
+// Filtered todo lists variables
 const completedLists = computed(() => {
   return todoStore.lists.filter((todo) => todo.isCompleted === true);
 });
