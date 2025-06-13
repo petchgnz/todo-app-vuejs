@@ -13,7 +13,10 @@ const isTodoComplete = ref(false);
 const isInEdit = ref(false);
 
 const completedLists = computed(() => {
-  todoStore.lists.filter((todo) => todo.isCompleted === true);
+  return todoStore.lists.filter((todo) => todo.isCompleted === true);
+});
+const inCompletedLists = computed(() => {
+  return todoStore.lists.filter((todo) => todo.isCompleted === false);
 });
 
 onMounted(async () => {
@@ -104,7 +107,11 @@ function ToggleCompletedTodo() {
     <!-- End Toggle completed button -->
 
     <!-- Todo List -->
-    <ul v-if="isTodoComplete" class="space-y-3 max-h-[390px] overflow-scroll scroll-smooth">
+    <!-- If isCompleted is TRUE -->
+    <ul
+      v-if="isTodoComplete"
+      class="space-y-3 max-h-[390px] overflow-scroll scroll-smooth"
+    >
       <li
         v-for="list in completedLists"
         class="p-4 pr-6 bg-bg3 flex items-center justify-between"
@@ -112,7 +119,6 @@ function ToggleCompletedTodo() {
         <div class="flex flex-col">
           <div class="text-2xl capitalize font-semibold">{{ list.task }}</div>
           <div class="capitalize text-md">> {{ list.status }}</div>
-          <div>{{ list.isCompleted }}</div>
         </div>
 
         <div class="flex gap-4">
@@ -123,15 +129,18 @@ function ToggleCompletedTodo() {
         </div>
       </li>
     </ul>
-    <ul v-else="!isTodoComplete" class="space-y-3 max-h-[390px] overflow-scroll scroll-smooth">
+    <!-- If isCompleted is FALSE -->
+    <ul
+      v-else="!isTodoComplete"
+      class="space-y-3 max-h-[390px] overflow-scroll scroll-smooth"
+    >
       <li
-        v-for="list in todoStore.lists"
+        v-for="list in inCompletedLists"
         class="p-4 pr-6 bg-bg3 flex items-center justify-between"
       >
         <div class="flex flex-col">
           <div class="text-2xl capitalize font-semibold">{{ list.task }}</div>
           <div class="capitalize text-md">> {{ list.status }}</div>
-          <div>{{ list.isCompleted }}</div>
         </div>
 
         <div class="flex gap-4">
